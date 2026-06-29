@@ -1,308 +1,427 @@
-# Changelog
+# CHANGELOG
 
 All notable changes to **Task Catalyst** are documented in this file.
 
-The format follows the principles of **Keep a Changelog**, documenting the evolution of the project between major versions.
+The project follows an evolutionary development approach where each major version introduces a significant architectural or functional improvement.
 
 ---
 
-# Version 2
+# Version 3
 
-> Release Type: **Major Feature Update**
+> **Release Type:** Major AI & Architecture Enhancement
 
-This release introduces a fully customizable motivational quote system, improves AI integration, enhances the dashboard experience, and significantly expands personalization.
+Version 3 transforms Task Catalyst from an AI-assisted productivity application into a **context-aware productivity assistant** capable of reasoning about a user's actual workload before generating recommendations.
+
+---
+
+# Highlights
+
+### 🧠 Context-Aware AI Coaching
+
+The AI coach now understands the user's real productivity situation instead of producing generic responses.
+
+Gemini now receives:
+
+* Pending tasks
+* Overdue tasks
+* Tasks due within 72 hours
+* Priority scores
+* Estimated completion time
+* Postponement history
+* Recent conversation history
+
+This enables responses tailored to the user's current workload.
+
+---
+
+### 🎯 Intelligent Productivity Reasoning
+
+The AI assistant can now:
+
+* Detect productivity risks
+* Reference actual task titles
+* Explain why a recommendation is important
+* Prioritize competing tasks
+* Recommend concrete next actions
+* Consider urgency alongside priority score
+
+This represents a major improvement over the previous recommendation system.
+
+---
+
+### 💬 Prompt Engineering Redesign
+
+Completely redesigned the Gemini system prompt.
+
+The assistant now behaves as a productivity guide instead of a traditional chatbot.
+
+The prompt encourages the model to:
+
+* Analyze task context
+* Explain decisions
+* Detect hidden risks
+* Avoid generic advice
+* Produce concise actionable responses
 
 ---
 
 ## Added
 
-### Advanced Quote Engine
+### AI Context Pipeline
 
-Introduced an entirely new quote management system capable of intelligently selecting motivational content from multiple sources.
+Added preprocessing before every AI request.
 
-Features include:
+The application now automatically prepares:
 
-* AI-generated quotes
-* Built-in motivational quote library
-* User-created custom quotes
-* Pinned favorite quotes
-* Smart fallback handling
-* Duplicate prevention
-* Non-repeating quote rotation
-* Persistent quote preferences
+* Productivity summary
+* Overdue task list
+* Upcoming deadlines
+* Ranked pending tasks
+* Conversation history
+* Estimated workload
 
----
-
-### Quote Modes
-
-Added four independent quote display modes:
-
-* Mixed
-* AI Only
-* My Quotes Only
-* Pinned Quote
-
-Users can now control exactly how motivational quotes are selected.
+before sending requests to Gemini.
 
 ---
 
-### Custom Quotes Manager
+### Situation Summary
 
-Added a dedicated modal for managing personal quotes.
+Introduced an internal productivity summary containing:
 
-Supported operations:
+* Overdue task count
+* Tasks due within 72 hours
+* Frequently postponed tasks
 
-* Create quote
-* Edit quote
-* Delete quote
-* Pin quote
-* Switch quote modes
-* Browse built-in quote collection
+This allows Gemini to immediately understand the user's workload.
 
 ---
 
-### Quote Source Identification
+### Conversation Memory
 
-Dashboard now displays the source of every motivational quote.
+The AI coach now includes recent conversation history when generating replies.
 
-Possible sources:
+Benefits include:
 
-* Gemini AI
-* My Quote
-* Classic Inspiration
-
-This improves transparency and user awareness.
+* Better continuity
+* Reduced repetition
+* More contextual responses
 
 ---
 
-### Persistent Quote Preferences
+### Task Ranking
 
-Quote settings are now preserved locally.
+Pending tasks are now sorted using the existing Priority Score before being supplied to Gemini.
 
-Stored information includes:
-
-* Selected quote mode
-* Custom quote library
-* Pinned quote
-* Previously displayed quote
-
-This allows a personalized experience across application sessions on the same device.
+The AI therefore reasons using the application's own prioritization algorithm.
 
 ---
 
 ## Changed
 
-### Dashboard
+### AI Coach
 
-The Dashboard quote section has been completely redesigned.
+Previously:
 
-Improvements include:
+* Answered user questions.
+* Provided productivity advice.
 
-* New quote source badges
-* Quote refresh improvements
-* Custom quote management button
-* Cleaner card layout
-* Better interaction flow
+Now:
+
+* Reasons about workload.
+* Detects risks.
+* Explains recommendations.
+* References real tasks.
+* Prioritizes actions.
 
 ---
 
 ### Gemini Integration
 
-Motivational quote generation has been refactored.
+Refactored AI communication.
 
-Previously:
+Improvements include:
 
-* Gemini returned a quote or an internal fallback.
-
-Now:
-
-* Gemini only returns AI-generated content.
-* Fallback selection is handled by the new quote engine.
-
-This creates a cleaner separation of responsibilities.
+* Better error handling
+* Cleaner response flow
+* Structured prompts
+* Better separation between UI and AI logic
 
 ---
 
-### Quote Selection Logic
+### Dashboard
 
-Quote generation now uses a centralized resolver responsible for:
+Improved Dashboard interaction with:
 
-* AI selection
-* Fallback handling
-* Custom quote selection
-* Pinned quote retrieval
-* Duplicate prevention
+* Smarter quote updates
+* Better integration with quote engine
+* Improved AI response flow
+* Better synchronization after settings changes
 
-instead of distributing this logic across multiple components.
+---
+
+### AI Recommendation Quality
+
+Recommendations are now generated using:
+
+* Deadlines
+* Priority scores
+* Estimated effort
+* Postponement history
+* Current workload
+
+instead of limited task information.
 
 ---
 
 ## Improved
 
-### Personalization
-
-Users can now build their own motivational library instead of relying solely on AI-generated content.
-
----
-
 ### User Experience
 
-Improved quote interactions through:
-
-* Source indicators
-* Better refresh behavior
-* More predictable quote rotation
-* Reduced repetition
+* More relevant coaching
+* Less generic AI responses
+* Better motivational experience
+* Faster interaction flow
 
 ---
 
 ### Maintainability
 
-Separated quote-related functionality into an independent module, making future development easier.
+Improved modularity by separating:
+
+* AI generation
+* Quote resolution
+* Dashboard presentation
+* Productivity reasoning
+
+This makes future expansion significantly easier.
+
+---
+
+### Prompt Design
+
+The prompt now explicitly instructs Gemini to:
+
+* Avoid generic advice.
+* Explain reasoning.
+* Mention task names.
+* Detect hidden risks.
+* Recommend the highest-impact task.
 
 ---
 
 ## Fixed
 
-* Prevent duplicate custom quotes.
-* Prevent immediate quote repetition.
-* Improved fallback behavior when Gemini is unavailable.
-* Improved resilience during AI request failures.
-* Cleaner handling of unavailable API keys.
+* Improved AI fallback behavior.
+* Better handling of missing API keys.
+* More resilient Gemini error handling.
+* Reduced repetitive AI responses.
+* Improved recommendation consistency.
 
 ---
 
-## Files Added
+# Files Modified
 
 ```text
-src/lib/
-    quotes.js
-
-src/components/
-    CustomQuotesModal.jsx
-```
-
----
-
-## Files Modified
-
-```text
-src/pages/
-    Dashboard.jsx
-
 src/lib/
     gemini.js
+
+src/pages/
+    Dashboard.jsx
 ```
 
 ---
 
-## Architecture Changes
+# Files Added
 
-### Previous Architecture (V1)
+```text
+No new core files.
+
+Version 3 primarily enhances existing architecture and AI reasoning.
+```
+
+---
+
+# Internal Architecture Changes
+
+## Previous Architecture (V2)
 
 ```text
 Dashboard
       │
       ▼
+Quote Engine
+      │
+      ▼
 Gemini
       │
       ▼
-Fallback Quote
+Response
 ```
 
-All quote-related logic was contained inside the Gemini utility.
+The AI generated responses using relatively limited task information.
 
 ---
 
-### Current Architecture (V2)
+## Current Architecture (V3)
 
 ```text
+Tasks
+      │
+      ▼
+Context Builder
+      │
+      ▼
+Gemini Prompt
+      │
+      ▼
+AI Reasoning
+      │
+      ▼
+Personalized Recommendation
+      │
+      ▼
 Dashboard
-      │
-      ▼
-Gemini
-      │
-      ▼
-resolveQuote()
-      │
- ┌────┼─────────────┐
- │    │             │
- ▼    ▼             ▼
-AI  Custom     Built-in
-Quote Quotes    Quotes
 ```
 
-Quote generation is now modular, making future extensions significantly easier.
+The AI now reasons using structured productivity context before generating responses.
 
 ---
 
-## Internal Refactoring
+# AI Pipeline Evolution
 
-* Centralized quote handling.
-* Modular quote engine.
-* Reduced Dashboard responsibility.
-* Cleaner separation between AI generation and UI presentation.
-* Improved code organization.
+## Version 2
 
----
+```text
+User Question
 
-## Performance
+↓
 
-Minor improvements through:
+Gemini
 
-* Local persistence using localStorage.
-* Reduced unnecessary quote generation.
-* Smarter random selection.
+↓
+
+Answer
+```
 
 ---
 
-## Breaking Changes
+## Version 3
+
+```text
+User Question
+
+↓
+
+Pending Tasks
+
+↓
+
+Priority Scores
+
+↓
+
+Deadlines
+
+↓
+
+Overdue Tasks
+
+↓
+
+Conversation History
+
+↓
+
+Situation Summary
+
+↓
+
+Gemini
+
+↓
+
+Context-Aware Recommendation
+```
+
+This significantly improves response quality while maintaining low latency.
+
+---
+
+# Performance
+
+Improved AI efficiency through:
+
+* Structured prompt generation.
+* Limited conversation history.
+* Ranked task selection.
+* Reduced unnecessary prompt size.
+
+---
+
+# Database
+
+No schema changes.
+
+Existing database structure remains fully compatible.
+
+No migration required.
+
+---
+
+# Breaking Changes
 
 None.
 
-Existing user data remains compatible.
+Version 2 user data remains fully compatible.
 
-If custom quote settings are unavailable, the application gracefully falls back to default behavior.
+No manual migration required.
 
 ---
 
-## Migration Notes
+# Migration Notes
 
-No database migration is required.
+Existing users automatically benefit from:
 
-This version only introduces client-side improvements.
+* Smarter AI coaching
+* Better contextual reasoning
+* Improved productivity recommendations
 
-Existing projects can upgrade without modifying the Supabase schema.
+No configuration changes are required.
+
+---
+
+# Statistics
+
+### Major AI Enhancements
+
+* Context-aware prompting
+* Intelligent workload analysis
+* Conversation memory
+* Risk detection
+* Priority-based reasoning
+
+### Files Modified
+
+* `src/lib/gemini.js`
+* `src/pages/Dashboard.jsx`
+
+### Database Changes
+
+* None
+
+### Primary Engineering Focus
+
+* AI Reasoning
+* Prompt Engineering
+* Context Awareness
+* Productivity Intelligence
 
 ---
 
 # Summary
 
-Version 2 transforms Task Catalyst's motivational system from a simple AI-generated quote feature into a fully configurable quote platform.
+Version 3 represents the first major step toward an **agentic productivity assistant**.
 
-The application now offers significantly greater personalization while maintaining graceful degradation when AI services are unavailable.
+Instead of responding solely to user prompts, Task Catalyst now analyzes the surrounding productivity context—including deadlines, priorities, workload, and recent interactions—to produce recommendations that are more relevant, explainable, and actionable.
 
----
-
-## Statistics
-
-**New Components**
-
-* 1 Component
-
-**New Utility Modules**
-
-* 1 Module
-
-**Major Files Modified**
-
-* Dashboard
-* Gemini
-* Settings
-
-**Primary Focus**
-
-* Motivation
-* Personalization
-* Dashboard Experience
-* Quote Engine Architecture
+This release establishes the architectural foundation for future versions focused on autonomous interventions, workflow orchestration, and advanced productivity intelligence.
